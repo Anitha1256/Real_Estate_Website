@@ -23,7 +23,7 @@ export default function PropertyDetail() {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:5001/api/properties/${id}`);
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/properties/${id}`);
                 setProperty(data);
             } catch (error) {
                 console.error(error);
@@ -39,7 +39,7 @@ export default function PropertyDetail() {
         if (!user) return toast.info('Please login to send inquiry');
         setSending(true);
         try {
-            await axios.post('http://localhost:5001/api/inquiries', {
+            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/inquiries`, {
                 propertyId: id,
                 message,
             }, {
@@ -60,7 +60,7 @@ export default function PropertyDetail() {
         if (!appointmentDate) return toast.warning('Please select a date and time');
         setSending(true);
         try {
-            await axios.post('http://localhost:5001/api/appointments', {
+            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/appointments`, {
                 propertyId: id,
                 appointmentDate,
                 notes: message,

@@ -75,7 +75,7 @@ export default function MapPage() {
     const fetchProperties = async () => {
         setLoading(true);
         try {
-            const { data } = await axios.get('http://localhost:5001/api/properties');
+            const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/properties`);
             setProperties(data);
             if (data.length > 0 && data[0].location?.coordinates?.lat) {
                 // If it's the initial load (properties empty) or explicit re-search, centering is okay.

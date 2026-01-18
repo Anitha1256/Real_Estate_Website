@@ -36,8 +36,8 @@ export default function AgentProfile() {
         const fetchAgentData = async () => {
             try {
                 const [agentRes, propertiesRes] = await Promise.all([
-                    axios.get(`http://localhost:5001/api/users/agents/${id}`),
-                    axios.get(`http://localhost:5001/api/properties?agentId=${id}`)
+                    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/users/agents/${id}`),
+                    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/properties?agentId=${id}`)
                 ]);
                 setAgent(agentRes.data);
                 setProperties(propertiesRes.data);

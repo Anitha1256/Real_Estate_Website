@@ -25,7 +25,7 @@ export default function Profile() {
         e.preventDefault();
         setLoading(true);
         try {
-            const { data } = await axios.put('http://localhost:5001/api/users/profile', formData, {
+            const { data } = await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/users/profile`, formData, {
                 headers: { Authorization: `Bearer ${user?.token}` }
             });
             // Update auth context with new user data (token remains same or updated)
@@ -45,7 +45,7 @@ export default function Profile() {
         }
         setPasswordLoading(true);
         try {
-            await axios.put('http://localhost:5001/api/users/password', {
+            await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/users/password`, {
                 currentPassword: passwords.currentPassword,
                 newPassword: passwords.newPassword
             }, {

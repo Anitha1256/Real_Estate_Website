@@ -31,10 +31,10 @@ export default function AdminDashboard() {
                 const config = { headers: { Authorization: `Bearer ${user?.token}` } };
 
                 const [usersRes, propsRes, inqRes, aptRes] = await Promise.all([
-                    axios.get('http://localhost:5001/api/users', config),
-                    axios.get('http://localhost:5001/api/properties', config),
-                    axios.get('http://localhost:5001/api/inquiries/admin', config),
-                    axios.get('http://localhost:5001/api/appointments/admin', config)
+                    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/users`, config),
+                    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/properties`, config),
+                    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/inquiries/admin`, config),
+                    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/appointments/admin`, config)
                 ]);
 
                 setUsersList(usersRes.data);
@@ -63,7 +63,7 @@ export default function AdminDashboard() {
     const handleDeleteUser = async (id: string, name: string) => {
         if (!window.confirm(`Are you sure you want to delete user ${name}?`)) return;
         try {
-            await axios.delete(`http://localhost:5001/api/users/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/users/${id}`, {
                 headers: { Authorization: `Bearer ${user?.token}` }
             });
             setUsersList(usersList.filter(u => u._id !== id));
@@ -76,7 +76,7 @@ export default function AdminDashboard() {
     const handleDeleteProperty = async (id: string) => {
         if (!window.confirm('Delete this property?')) return;
         try {
-            await axios.delete(`http://localhost:5001/api/properties/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/properties/${id}`, {
                 headers: { Authorization: `Bearer ${user?.token}` }
             });
             setProperties(properties.filter(p => p._id !== id));

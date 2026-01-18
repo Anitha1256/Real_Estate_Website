@@ -22,7 +22,7 @@ export default function Agents() {
     useEffect(() => {
         const fetchAgents = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5001/api/users/agents');
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/users/agents`);
                 setAgents(data);
             } catch (error) {
                 console.error('Failed to fetch agents:', error);

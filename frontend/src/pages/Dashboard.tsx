@@ -49,7 +49,7 @@ export default function Dashboard() {
 
     const handleStatusUpdate = async (id: string, newStatus: string) => {
         try {
-            const { data } = await axios.put(`http://localhost:5001/api/appointments/${id}`,
+            const { data } = await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/appointments/${id}`,
                 { status: newStatus },
                 { headers: { Authorization: `Bearer ${user?.token}` } }
             );
@@ -65,7 +65,7 @@ export default function Dashboard() {
         if (!replyMessage.trim()) return;
 
         try {
-            await axios.post(`http://localhost:5001/api/inquiries/${id}/reply`,
+            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/inquiries/${id}/reply`,
                 { message: replyMessage },
                 { headers: { Authorization: `Bearer ${user?.token}` } }
             );
@@ -82,15 +82,15 @@ export default function Dashboard() {
             setLoading(true);
             try {
                 if (activeTab === 'inventory') {
-                    const { data } = await axios.get(`http://localhost:5001/api/properties?agentId=${user?._id}`);
+                    const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/properties?agentId=${user?._id}`);
                     setProperties(data);
                 } else if (activeTab === 'inquiries') {
-                    const { data } = await axios.get('http://localhost:5001/api/inquiries/agent', {
+                    const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/inquiries/agent`, {
                         headers: { Authorization: `Bearer ${user?.token}` }
                     });
                     setInquiries(data);
                 } else if (activeTab === 'appointments') {
-                    const { data } = await axios.get('http://localhost:5001/api/appointments/agent', {
+                    const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/appointments/agent`, {
                         headers: { Authorization: `Bearer ${user?.token}` }
                     });
                     setAppointments(data);
@@ -112,7 +112,7 @@ export default function Dashboard() {
         if (!window.confirm('Are you absolutely sure you want to remove this masterpiece? This action cannot be undone.')) return;
 
         try {
-            await axios.delete(`http://localhost:5001/api/properties/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/properties/${id}`, {
                 headers: { Authorization: `Bearer ${user?.token}` }
             });
             setProperties(properties.filter(p => p._id !== id));
@@ -357,8 +357,8 @@ export default function Dashboard() {
                                         <div className="w-full md:w-64 flex-shrink-0">
                                             <div className="flex items-center gap-3 mb-4">
                                                 <div className={`p-3 rounded-2xl ${apt.status === 'confirmed' ? 'bg-green-50 text-green-600' :
-                                                        apt.status === 'canceled' ? 'bg-red-50 text-red-600' :
-                                                            'bg-purple-50 text-purple-600'
+                                                    apt.status === 'canceled' ? 'bg-red-50 text-red-600' :
+                                                        'bg-purple-50 text-purple-600'
                                                     }`}>
                                                     <Calendar size={20} />
                                                 </div>

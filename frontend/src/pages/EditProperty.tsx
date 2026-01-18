@@ -36,7 +36,7 @@ export default function EditProperty() {
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:5001/api/properties/${id}`);
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/properties/${id}`);
                 setFormData({
                     title: data.title,
                     description: data.description,
@@ -90,7 +90,7 @@ export default function EditProperty() {
         }
 
         try {
-            await axios.put(`http://localhost:5001/api/properties/${id}`, data, {
+            await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/properties/${id}`, data, {
                 headers: {
                     Authorization: `Bearer ${user?.token}`
                 }

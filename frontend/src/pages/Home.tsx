@@ -17,7 +17,7 @@ export default function Home() {
     useEffect(() => {
         const fetchLatestProperties = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5001/api/properties');
+                const { data } = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/properties`);
                 // Only take the first 3 latest properties for the preview
                 setProperties(data.slice(0, 3));
             } catch (error) {
