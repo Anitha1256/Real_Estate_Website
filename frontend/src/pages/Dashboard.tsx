@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { Building, Plus, Edit3, Trash2, MapPin, LayoutDashboard, ListFilter, Search, AlertCircle, MessageSquare, Calendar, User, Phone, Mail, Check, X, Clock } from 'lucide-react';
+import { Building, Plus, Edit3, Trash2, MapPin, LayoutDashboard, Search, AlertCircle, MessageSquare, Calendar, User, Phone, Mail, Check, X, Clock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 
